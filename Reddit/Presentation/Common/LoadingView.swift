@@ -1,6 +1,6 @@
 //
 //  LoadingView.swift
-//  RickAndMorty
+//  Reddit
 //
 //  Created by Agustinch on 08/02/2023.
 //

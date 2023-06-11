@@ -17,7 +17,7 @@ protocol DelegatePermissionsRequest {
     func nextView(with indexPage: Int)
 }
 
-final class PermissionsRequestViewController: UIViewController {
+final class PermissionsRequestViewController: UIViewController, Alertable {
 
     // MARK: Lifecycle
     let page: Pages
@@ -226,14 +226,20 @@ extension PermissionsRequestViewController {
 
     func showModal(title: String, message: String) {
         // TODO: Reutilizable alert
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alertController.addAction(UIAlertAction(title: "Open Settings", style: .default, handler: { [weak self] _ in
+//        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+//        alertController.addAction(UIAlertAction(title: "Open Settings", style: .default, handler: { [weak self] _ in
+//            guard let self = self else {return}
+//            self.delegate?.nextView(with: page.index)
+//            self.openConfigurations()
+//        }))
+//        self.present(alertController, animated: true, completion: nil)
+        
+        showAlert(title: title, message: message) { [weak self] _ in
             guard let self = self else {return}
             self.delegate?.nextView(with: page.index)
             self.openConfigurations()
-        }))
-        self.present(alertController, animated: true, completion: nil)
+        }
     }
 
 }

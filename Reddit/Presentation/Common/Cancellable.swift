@@ -1,6 +1,6 @@
 //
 //  Cancellable.swift
-//  RickAndMorty
+//  Reddit
 //
 //  Created by Agustinch on 06/02/2023.
 //

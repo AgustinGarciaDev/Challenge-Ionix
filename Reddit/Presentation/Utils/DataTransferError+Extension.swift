@@ -1,6 +1,6 @@
 //
 //  DataTransferError+Extension.swift
-//  RickAndMorty
+//  Reddit
 //
 //  Created by Agustinch on 09/02/2023.
 //

@@ -36,6 +36,7 @@ class PostListViewController: UIViewController, Alertable {
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = .white
         tableView.backgroundColor = UIColor(named: "primary-color")
+        tableView.isHidden = true
         return tableView
     }()
 
@@ -43,6 +44,8 @@ class PostListViewController: UIViewController, Alertable {
         let view = ItemCarousel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
+        view.isHidden = true
+
         return view
     }()
 
@@ -140,11 +143,11 @@ class PostListViewController: UIViewController, Alertable {
     }
 
     private func updateLoading(_ loading: PostsListViewModelLoading?) {
-        postListTableView.isHidden = true
         LoadingView.hide()
 
         switch loading {
-        case .fullScreen: LoadingView.show()
+        case .fullScreen:
+            LoadingView.show()
         case .nextPage: postListTableView.isHidden = false
         case .none:
             postListTableView.isHidden = viewModel!.isEmpty
@@ -171,8 +174,7 @@ class PostListViewController: UIViewController, Alertable {
 
     private func showError(_ error: String) {
         guard !error.isEmpty else { return }
-        print(error)
-        showAlert(title: viewModel.errorTitle, message: error) { [weak self] in
+        showAlert(title: viewModel.errorTitle, message: error) {  [weak self] _ in
             if error == "Failed loading characters" {
                 self?.viewModel.didSearch(query: "")
             }
@@ -199,7 +201,6 @@ extension PostListViewController: UISearchControllerDelegate, UISearchBarDelegat
         if isSearching {
             return false
         }
-        
         return true
     }
 

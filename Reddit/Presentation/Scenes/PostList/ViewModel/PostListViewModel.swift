@@ -132,6 +132,7 @@ class DefaultPostListViewModel: PostsListViewModel {
             if nextPage !=  "There is no next page." {
                 didLoadNextPage()
             } else {
+                //
                 foundSearch.value = false
             }
         } else {
@@ -162,6 +163,7 @@ extension DefaultPostListViewModel {
     }
 
     func didCancelSearch() {
+        nextPage = ""
         foundSearch.value = true
         loadPosts(loading: .fullScreen)
     }
