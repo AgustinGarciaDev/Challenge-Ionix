@@ -8,7 +8,7 @@
 import UIKit
 
 class ItemCarousel: UIView {
-    
+
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: Image.imageNotification)
@@ -16,7 +16,7 @@ class ItemCarousel: UIView {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "No Results"
@@ -27,7 +27,7 @@ class ItemCarousel: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private lazy var descriptionMessageLabel: UILabel = {
         let label = UILabel()
         label.text = "Sorry, there are no results for this search. Please try another phrase"
@@ -38,7 +38,7 @@ class ItemCarousel: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     lazy private var containerLabelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.addArrangedSubview(titleLabel)
@@ -50,32 +50,32 @@ class ItemCarousel: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setupViews()
-        
+
     }
-    //MARK: Layout
-    
+    // MARK: Layout
+
     private func setupViews() {
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
         addSubview(containerLabelStackView)
         setupConstraints()
     }
-    
+
     private func setupConstraints() {
         if let superview = superview {
                     centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
                     centerYAnchor.constraint(equalTo: superview.centerYAnchor).isActive = true
         }
-        
+
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: topAnchor, constant: 142),
             imageView.centerXAnchor.constraint(equalTo: centerXAnchor),
@@ -83,7 +83,7 @@ class ItemCarousel: UIView {
             containerLabelStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             containerLabelStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
             containerLabelStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
-            containerLabelStackView.heightAnchor.constraint(equalToConstant: 115),
+            containerLabelStackView.heightAnchor.constraint(equalToConstant: 115)
         ])
     }
 }

@@ -18,26 +18,25 @@ protocol DelegatePermissionsRequest {
 }
 
 final class PermissionsRequestViewController: UIViewController {
-    
+
     // MARK: Lifecycle
     let page: Pages
     var delegate: DelegatePermissionsRequest?
     let cameraPermissionManager = CameraPermissionManager.shared
     let notificationPermissionManager = NotificationPermissionManager.shared
     let locationPermissionManager = LocationPermissionManager.shared
-    
-    
+
     init(with page: Pages) {
         self.page = page
         super.init(nibName: nil, bundle: nil)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    //MARK: UI Elements
-    
+
+    // MARK: UI Elements
+
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: page.image)
@@ -45,7 +44,7 @@ final class PermissionsRequestViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = page.title
@@ -56,7 +55,7 @@ final class PermissionsRequestViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private lazy var descriptionMessageLabel: UILabel = {
         let label = UILabel()
         label.text = page.description
@@ -67,7 +66,7 @@ final class PermissionsRequestViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     lazy private var containerLabelStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.addArrangedSubview(titleLabel)
@@ -79,7 +78,7 @@ final class PermissionsRequestViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     private lazy var nextStepButton: UIButton = {
         let button = UIButton()
         button.setTitle("Enable", for: .normal)
@@ -89,7 +88,7 @@ final class PermissionsRequestViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private lazy var cancelButton: UIButton = {
         let button = UIButton()
         button.setTitle("Cancel", for: .normal)
@@ -99,52 +98,52 @@ final class PermissionsRequestViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     // MARK: View Lifecycle
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
         setUpConstraints()
     }
-    
+
     private func setUpViews() {
         view.addSubview(imageView)
         view.addSubview(containerLabelStackView)
         view.addSubview(nextStepButton)
         view.addSubview(cancelButton)
     }
-    
-    //MARK: Layout
-    
+
+    // MARK: Layout
+
     private func setUpConstraints() {
         let safeArea = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 142),
             imageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            
+
             containerLabelStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             containerLabelStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 50),
             containerLabelStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -50),
             containerLabelStackView.heightAnchor.constraint(equalToConstant: 115),
-            
+
             nextStepButton.topAnchor.constraint(equalTo: containerLabelStackView.bottomAnchor, constant: 10),
             nextStepButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             nextStepButton.heightAnchor.constraint(equalToConstant: 50),
             nextStepButton.widthAnchor.constraint(equalToConstant: 195),
-            
+
             cancelButton.topAnchor.constraint(equalTo: nextStepButton.bottomAnchor, constant: 20),
-            cancelButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            cancelButton.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
         ])
     }
-    
-    //MARK: User Interaction
-    
+
+    // MARK: User Interaction
+
     @objc private func validatePermission() {
         switch page.type {
         case .location:
@@ -158,24 +157,24 @@ final class PermissionsRequestViewController: UIViewController {
             return
         }
     }
-    
+
     @objc private func nextStep() {
         self.delegate?.nextView(with: page.index)
     }
 }
 
-//MARK: Camara
+// MARK: Camara
 
 extension PermissionsRequestViewController {
-    
+
     private func requestLocationPermission() {
         locationPermissionManager.requestLocationPermission { [weak self ] autorizationStatus in
             guard let self = self else {return}
             switch autorizationStatus {
-            case .restricted , .denied:
+            case .restricted, .denied:
                 self.showModal(title: "Background Location Access Disabled", message: "In order to show the location weather forecast, please open this app's settings and set location access to 'While Using'.")
                 return
-            case .authorizedAlways , .authorizedWhenInUse, .authorized:
+            case .authorizedAlways, .authorizedWhenInUse, .authorized:
                 self.showModal(title: "Do you want to change your settings?", message: "This could affect your experience in the app.")
                 return
             case .notDetermined:
@@ -186,7 +185,7 @@ extension PermissionsRequestViewController {
             }
         }
     }
-    
+
     private func requestNotificationPermission() {
         notificationPermissionManager.requestNotificationPermission {
             [weak self] granted, isFirstInit  in
@@ -203,19 +202,19 @@ extension PermissionsRequestViewController {
             }
         }
     }
-    
+
     private func requestCameraPermission() {
-        cameraPermissionManager.requestCameraPermission { [weak self] granted,statusPermission  in
+        cameraPermissionManager.requestCameraPermission { [weak self] granted, statusPermission  in
             guard let self = self else {return}
-            
+
             if statusPermission != nil {
                 self.delegate?.nextView(with: page.index)
                 return
             }
-            
-            if granted  {
+
+            if granted {
                 self.showModal(title: "Do you want to change your settings?", message: "This could affect your experience in the app.")
-                
+
             } else {
                 self.showModal(title: "Background Camera Access Disabled", message: "In order to show the location weather forecast, please open this app's settings and set location access to 'While Using'.")
             }
@@ -224,19 +223,19 @@ extension PermissionsRequestViewController {
 }
 
 extension PermissionsRequestViewController {
-    
+
     func showModal(title: String, message: String) {
-        //TODO: Reutilizable alert
+        // TODO: Reutilizable alert
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        alertController.addAction(UIAlertAction(title: "Open Settings", style: .default, handler: { [weak self] action in
+        alertController.addAction(UIAlertAction(title: "Open Settings", style: .default, handler: { [weak self] _ in
             guard let self = self else {return}
             self.delegate?.nextView(with: page.index)
             self.openConfigurations()
         }))
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
 }
 
 extension PermissionsRequestViewController {
@@ -247,15 +246,15 @@ extension PermissionsRequestViewController {
             }
         }
     }
-    
+
     private func getGraddiantColor() -> UIColor? {
         let gradientStartColor = UIColor(red: 1.0, green: 0.537, blue: 0.376, alpha: 1.0)
         let gradientEndColor = UIColor(red: 1.0, green: 0.384, blue: 0.647, alpha: 1.0)
         let startPoint = CGPoint(x: 0.0, y: 0.0)
         let endPoint = CGPoint(x: 1.0, y: 1.0)
-        
+
         let gradientColor = UIColor.gradientColor(startColor: gradientStartColor, endColor: gradientEndColor, startPoint: startPoint, endPoint: endPoint)
-        
+
         return gradientColor
     }
 }

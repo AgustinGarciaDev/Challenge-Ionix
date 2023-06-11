@@ -9,5 +9,5 @@ import Foundation
 
 struct SearchRequest: Encodable {
     let limit: String = "100"
-    let q: String
+    let search: String
 }

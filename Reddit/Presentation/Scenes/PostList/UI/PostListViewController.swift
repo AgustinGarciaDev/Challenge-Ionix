@@ -11,6 +11,8 @@ class PostListViewController: UIViewController, Alertable {
 
     // MARK: Lifecycle
     private var viewModel: PostsListViewModel!
+    private var isSearching = false
+
 
     private var nextPageLoadingSpinner: UIActivityIndicatorView?
 
@@ -19,11 +21,11 @@ class PostListViewController: UIViewController, Alertable {
         view.viewModel = viewModel
         return view
     }
-    
-    //MARK: UI Elements
-    
+
+    // MARK: UI Elements
+
     private var searchController = UISearchController(searchResultsController: nil)
-    
+
     lazy private var postListTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,16 +38,16 @@ class PostListViewController: UIViewController, Alertable {
         tableView.backgroundColor = UIColor(named: "primary-color")
         return tableView
     }()
-    
+
     lazy private var showErrorNotFoundView: ItemCarousel = {
         let view = ItemCarousel()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         return view
     }()
-    
+
     // MARK: View Lifecycle
-    
+
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: animated)
         navigationItem.searchController = searchController
@@ -61,6 +63,43 @@ class PostListViewController: UIViewController, Alertable {
         setupConstraints()
         setupSearchController()
     }
+
+    // MARK: Layout
+
+    private func setUpViews() {
+        view.addSubview(postListTableView)
+        view.addSubview(showErrorNotFoundView)
+    }
+
+    private func configurationIconBar() {
+        self.navigationItem.hidesBackButton = true
+
+        if let icon = UIImage(named: Image.settingsIcon)?.withRenderingMode(.alwaysOriginal) {
+            let newBackButton = UIBarButtonItem(image: icon, style: .plain, target: self, action: #selector(showPermissionList))
+            self.navigationItem.leftBarButtonItem = newBackButton
+        }
+    }
+
+    private func setupConstraints() {
+        let safeArea = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            postListTableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            postListTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            postListTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            postListTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+
+            showErrorNotFoundView.topAnchor.constraint(equalTo: view.topAnchor),
+            showErrorNotFoundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            showErrorNotFoundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            showErrorNotFoundView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
+    }
+
+    // MARK: User Interaction
+
+    @objc private func showPermissionList() {
+        viewModel.didShowPermission()
+    }
     
     private func bind(to viewModel: PostsListViewModel) {
 
@@ -73,7 +112,15 @@ class PostListViewController: UIViewController, Alertable {
         viewModel.query.observe(on: self) { [weak self] in self?.updateSearchQuery($0) }
 
         viewModel.loading.observe(on: self) { [weak self] in self?.updateLoading($0)}
+        
         viewModel.foundSearch.observe(on: self, observerBlock: {[weak self] in self?.updatedFoundSearch($0)})
+        
+        viewModel.isSearching.observe(on: self, observerBlock: {[weak self] in self?.updatedStatusSearch($0)})
+        
+    }
+    
+    private func updatedStatusSearch(_ status: Bool) {
+        isSearching = status
     }
 
     private func updatedFoundSearch(_ status: Bool) {
@@ -85,13 +132,13 @@ class PostListViewController: UIViewController, Alertable {
             postListTableView.isHidden = true
         }
     }
-     
+
     private func updateItems() {
         DispatchQueue.main.async {
             self.postListTableView.reloadData()
         }
     }
-    
+
     private func updateLoading(_ loading: PostsListViewModelLoading?) {
         postListTableView.isHidden = true
         LoadingView.hide()
@@ -105,7 +152,7 @@ class PostListViewController: UIViewController, Alertable {
 
         updatedLoadingNextPage(loading)
     }
-    
+
     private func updatedLoadingNextPage(_ loading: PostsListViewModelLoading?) {
         switch loading {
         case .nextPage:
@@ -116,7 +163,7 @@ class PostListViewController: UIViewController, Alertable {
             postListTableView.tableFooterView = nil
         }
     }
-    
+
     private func updateSearchQuery(_ query: String) {
         searchController.isActive = false
         searchController.searchBar.text = query
@@ -132,44 +179,6 @@ class PostListViewController: UIViewController, Alertable {
         }
     }
 
-    //MARK: Layout
-    
-    private func setUpViews() {
-        view.addSubview(postListTableView)
-        view.addSubview(showErrorNotFoundView)
-    }
-    
-    private func configurationIconBar() {
-        self.navigationItem.hidesBackButton = true
-        let icon = UIImage(systemName: "gearshape")?.withRenderingMode(.alwaysTemplate)
-        icon?.withTintColor(.gray)
-        let newBackButton = UIBarButtonItem(image: icon , style: .done, target: self, action: #selector(showPermissionList))
-        self.navigationItem.leftBarButtonItem = newBackButton
-    }
-    
-    private func setupConstraints() {
-        let safeArea = view.safeAreaLayoutGuide
-        NSLayoutConstraint.activate([
-            postListTableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            postListTableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            postListTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            postListTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
-
-          
-                showErrorNotFoundView.topAnchor.constraint(equalTo: view.topAnchor),
-                showErrorNotFoundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                showErrorNotFoundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                showErrorNotFoundView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-      
-        ])
-    }
-    
-    //MARK: User Interaction
-    
-    @objc private func showPermissionList() {
-        viewModel.didShowPermission()
-    }
-    
 }
 
 extension PostListViewController: UISearchControllerDelegate, UISearchBarDelegate {
@@ -178,16 +187,26 @@ extension PostListViewController: UISearchControllerDelegate, UISearchBarDelegat
         searchController.isActive = false
         viewModel?.didSearch(query: searchText)
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let searchText = searchBar.text, !searchText.isEmpty else { return }
-     //   viewModel?.didSearch(query: searchText)
+        viewModel?.didSearch(query: searchText)
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+
+        if isSearching {
+            return false
+        }
+        
+        return true
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         viewModel?.didCancelSearch()
     }
-    
+
     private func setupSearchController() {
         searchController.delegate = self
         searchController.searchBar.delegate = self

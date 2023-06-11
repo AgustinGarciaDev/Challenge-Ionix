@@ -8,13 +8,13 @@
 import AVFoundation
 
 final class CameraPermissionManager {
-    
+
     static let shared = CameraPermissionManager()
-    
+
     func requestCameraPermission(completion: @escaping (Bool, AVAuthorizationStatus?) -> Void) {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
-            completion(true,nil)
+            completion(true, nil)
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { granted in
                 DispatchQueue.main.async {
@@ -22,9 +22,9 @@ final class CameraPermissionManager {
                 }
             }
         case .denied, .restricted:
-            completion(false,nil)
+            completion(false, nil)
         @unknown default:
-            completion(false,nil)
+            completion(false, nil)
         }
     }
 }

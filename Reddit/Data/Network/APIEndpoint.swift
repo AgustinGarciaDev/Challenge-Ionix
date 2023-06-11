@@ -12,18 +12,18 @@ struct APIEndpoints {
         return Endpoint(path: "r/chile/new/.json",
                         method: .get,
                         queryParameters: [
-                            "limit" : "100",
+                            "limit": "100",
                             "after": nextPage
                         ]
         )
     }
-    
+
     static func searchPosts(_ request: SearchRequest) -> Endpoint <PageInformation> {
         return Endpoint(path: "r/chile/search.json",
                         method: .get,
                         queryParameters: [
-                            "q": request.q,
-                            "limit":"100"
+                            "q": request.search,
+                            "limit": "100"
                         ]
         )
     }

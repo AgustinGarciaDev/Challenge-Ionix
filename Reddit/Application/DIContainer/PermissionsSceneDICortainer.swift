@@ -16,7 +16,7 @@ final class PermissionsSceneDIContainer: PermissionsFlowCoordinatorDependencies 
     func makePermissionsViewController(page: Pages) -> PermissionsRequestViewController {
         return PermissionsRequestViewController(with: page)
     }
-    
+
     // MARK: - Flow Coordinators
     func makePermissionsFlowCoordinator(navigationController: UINavigationController) -> PermissionsFlowCoordinator {
         return PermissionsFlowCoordinator(

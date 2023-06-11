@@ -11,7 +11,7 @@ enum Pages: CaseIterable {
     case pageZero
     case pageOne
     case pageTwo
-    
+
     var type: TypePermission {
         switch self {
         case .pageZero:
@@ -22,7 +22,7 @@ enum Pages: CaseIterable {
             return .location
         }
     }
-    
+
     var title: String {
         switch self {
         case .pageZero:
@@ -33,7 +33,7 @@ enum Pages: CaseIterable {
             return "Enable location services"
         }
     }
-    
+
     var image: String {
         switch self {
         case .pageZero:
@@ -44,7 +44,7 @@ enum Pages: CaseIterable {
             return Image.imageLocation
         }
     }
-    
+
     var description: String {
         switch self {
         case .pageZero:
@@ -55,8 +55,7 @@ enum Pages: CaseIterable {
             return "We wants to access your location only to provide a better experience by helping you find new friends nearby."
         }
     }
-    
-    
+
     var index: Int {
         switch self {
         case .pageZero:

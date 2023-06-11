@@ -15,14 +15,14 @@ final class HomeFlowCoordinator: Coordinator {
         self.navigationController = navigationController
         self.dependencies = dependencies
     }
-    
+
     func start() {
         let actions = PostsListViewModelActions(showPermissions: showPermissions)
         let viewController = dependencies.makePostsListViewController(actions: actions)
         viewController.view.backgroundColor = .white
-        navigationController.pushViewController(viewController, animated: true)
+        navigationController.pushViewController(viewController, animated: false)
     }
-    
+
     func showPermissions() {
         let permissionsSceneDIContainer = PermissionsSceneDIContainer()
         let flowCoordiantor = permissionsSceneDIContainer.makePermissionsFlowCoordinator(navigationController: navigationController)

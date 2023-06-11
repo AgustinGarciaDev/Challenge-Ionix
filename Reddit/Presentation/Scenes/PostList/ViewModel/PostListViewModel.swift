@@ -29,6 +29,7 @@ protocol PostsListViewModelOutput {
     var error: Observable<String> { get }
     var query: Observable<String> { get }
     var foundSearch: Observable<Bool> { get }
+    var isSearching: Observable<Bool> { get }
     var isEmpty: Bool { get }
     var errorTitle: String { get }
     var loading: Observable<PostsListViewModelLoading?> { get }
@@ -38,22 +39,22 @@ protocol PostsListViewModel: PostsListViewModelInput, PostsListViewModelOutput {
 
 class DefaultPostListViewModel: PostsListViewModel {
     let foundSearch: Observable<Bool> = Observable(true)
+    let isSearching: Observable<Bool> = Observable(false)
     let items: Observable<[PostList]> =  Observable([])
     let error: Observable<String> = Observable("")
     let query: Observable<String> = Observable("")
     let loading: Observable<PostsListViewModelLoading?> = Observable(.none)
     var isEmpty: Bool { return items.value.isEmpty}
     let errorTitle: String = ""
-    
+
     private let loadPostUseCase: LoadPostUseCase
     private let searchPostsUseCase: SearchPostsUseCase
     private let actions: PostsListViewModelActions?
-    
+
     private var postLoadTask: Cancellable? { willSet { postLoadTask?.cancel() } }
     private var nextPage: String = ""
     private var postsList: [PostList] = []
 
-    
     init(loadPostUseCase: LoadPostUseCase,
          searchPostsUseCase: SearchPostsUseCase,
          actions: PostsListViewModelActions? = nil) {
@@ -64,16 +65,15 @@ class DefaultPostListViewModel: PostsListViewModel {
 
     private func loadPosts(loading: PostsListViewModelLoading) {
         self.loading.value = loading
-        
+
         guard nextPage != "There is no next page." else {
               self.loading.value = .none
               return
         }
-          
-        
+
         postLoadTask = loadPostUseCase.execute(nexPage: nextPage, completion: { [weak self] result in
             guard let self = self else {return}
-            
+
             switch result {
             case .success(let posts):
                 self.appendPage(posts)
@@ -81,15 +81,16 @@ class DefaultPostListViewModel: PostsListViewModel {
                 self.handle(error: error)
             }
             self.loading.value = .none
+            isSearching.value = false
         })
     }
-    
+
     private func searchPosts(loading: PostsListViewModelLoading, request: SearchRequest) {
         self.loading.value = loading
-        
+
         postLoadTask = searchPostsUseCase.execute(requestValue: request, completion: { [weak self] result in
             guard let self = self else {return}
-            
+
             switch result {
             case .success(let posts):
                 self.searchResult(posts)
@@ -97,20 +98,21 @@ class DefaultPostListViewModel: PostsListViewModel {
                 self.handle(error: error)
             }
             self.loading.value = .none
+            isSearching.value = false
         })
     }
- 
+
     private func searchResult(_ informationPosts: PageInformation) {
         postsList.removeAll()
-        
+
         guard !informationPosts.data.children.isEmpty else {
             foundSearch.value = false
             return
         }
-        foundSearch.value = true
+        
         appendPage(informationPosts)
     }
-    
+
     private func appendPage(_ informationPosts: PageInformation) {
         nextPage = informationPosts.data.after ?? "There is no next page."
         let posts = informationPosts.data.children
@@ -120,18 +122,20 @@ class DefaultPostListViewModel: PostsListViewModel {
             }
             return postData.postHint == "image" && postData.linkFlairText == "Shitposting"
         }
-        
+
         postsList = postsList
             .filter { !filteredPosts.contains($0) }
             + filteredPosts
-        
+
         if postsList.isEmpty {
+            print(items.value)
             if nextPage !=  "There is no next page." {
                 didLoadNextPage()
             } else {
                 foundSearch.value = false
             }
         } else {
+            foundSearch.value = true
             items.value = postsList
         }
     }
@@ -146,20 +150,22 @@ extension DefaultPostListViewModel {
     func didLoadPosts() {
         loadPosts(loading: .fullScreen)
     }
-    
+
     func didLoadNextPage() {
         loadPosts(loading: .nextPage)
     }
-    
+
     func didSearch(query: String) {
-        let request = SearchRequest(q: query)
+        let request = SearchRequest(search: query)
+        isSearching.value = true
         searchPosts(loading: .fullScreen, request: request)
     }
-    
+
     func didCancelSearch() {
-        postLoadTask?.cancel()
+        foundSearch.value = true
+        loadPosts(loading: .fullScreen)
     }
-    
+
     func didShowPermission() {
         actions?.showPermissions()
     }

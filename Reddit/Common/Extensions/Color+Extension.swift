@@ -14,17 +14,14 @@ extension UIColor {
         gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
         gradientLayer.startPoint = startPoint
         gradientLayer.endPoint = endPoint
-        
+
         UIGraphicsBeginImageContext(gradientLayer.bounds.size)
         guard let context = UIGraphicsGetCurrentContext() else { return nil }
         gradientLayer.render(in: context)
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        
+
         guard let cgImage = image?.cgImage else { return nil }
         return UIColor(patternImage: UIImage(cgImage: cgImage))
     }
 }
-
-
-

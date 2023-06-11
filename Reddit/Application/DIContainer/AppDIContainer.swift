@@ -24,7 +24,7 @@ final class AppDIContainer {
         let dependencies = PostsSceneDIContainer.Dependencies(apiDataTransferService: apiDataTransferService)
         return PostsSceneDIContainer(dependencies: dependencies)
     }
-    
+
     func makePermissionSceneDIContainer() -> PermissionsSceneDIContainer {
         return PermissionsSceneDIContainer()
     }

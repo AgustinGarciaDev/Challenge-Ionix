@@ -8,9 +8,9 @@
 import Foundation
 
 protocol PostsRepository {
-    func fetchPostsList(nextPage:String,
+    func fetchPostsList(nextPage: String,
                         completion: @escaping(Result<PageInformation, Error>) -> Void) -> Cancellable?
-    func searchPosts(query: SearchRequest ,completion: @escaping(Result<PageInformation, Error>) -> Void) -> Cancellable?
+    func searchPosts(query: SearchRequest, completion: @escaping(Result<PageInformation, Error>) -> Void) -> Cancellable?
 }
 
 final class DefaultPostsRepository {
@@ -24,11 +24,11 @@ final class DefaultPostsRepository {
 }
 
 extension DefaultPostsRepository: PostsRepository {
-    
+
     func fetchPostsList(nextPage: String, completion: @escaping (Result<PageInformation, Error>) -> Void) -> Cancellable? {
         let task = RepositoryTask()
         let endpoint =  APIEndpoints.getPosts(nextPage: nextPage)
-        
+
         task.networkTask = self.dataTransferService.request(with: endpoint, completion: { result in
             switch result {
             case .success(let response):
@@ -39,11 +39,11 @@ extension DefaultPostsRepository: PostsRepository {
         })
         return task
     }
-    
+
     func searchPosts(query: SearchRequest, completion: @escaping (Result<PageInformation, Error>) -> Void) -> Cancellable? {
         let task = RepositoryTask()
         let endpoint =  APIEndpoints.searchPosts(query)
-        
+
         task.networkTask = self.dataTransferService.request(with: endpoint, completion: { result in
             switch result {
             case .success(let response):

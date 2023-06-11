@@ -10,10 +10,9 @@ import UserNotifications
 
 final class NotificationPermissionManager {
     static let shared = NotificationPermissionManager()
-    
+
     private let notificationCenter = UNUserNotificationCenter.current()
-    
-    
+
     func requestNotificationPermission(completion: @escaping (Bool, Bool?) -> Void) {
         self.notificationCenter.getNotificationSettings { settings in
             DispatchQueue.main.async {
@@ -38,7 +37,7 @@ final class NotificationPermissionManager {
                     print("Error requesting notification permissions: \(error.localizedDescription)")
                     completion(false, nil)
                 } else if granted {
-                    completion(true,true)
+                    completion(true, true)
                 } else {
                     completion(false, nil)
                 }

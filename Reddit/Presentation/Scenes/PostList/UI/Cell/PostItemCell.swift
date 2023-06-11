@@ -8,9 +8,9 @@
 import UIKit
 
 class PostItemCell: UITableViewCell {
-    
-    //MARK: UI Elements
-    
+
+    // MARK: UI Elements
+
     lazy var postImageView: UIImageView  = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +18,7 @@ class PostItemCell: UITableViewCell {
         image.contentMode = .scaleAspectFit
         return image
     }()
-    
+
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -29,7 +29,7 @@ class PostItemCell: UITableViewCell {
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
-    
+
     lazy var scoreLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -39,7 +39,7 @@ class PostItemCell: UITableViewCell {
         label.text = "100"
         return label
     }()
-    
+
     lazy var numberCommentLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -49,7 +49,7 @@ class PostItemCell: UITableViewCell {
         label.text = "10"
         return label
     }()
-    
+
     lazy var commentIconView: UIImageView  = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: Image.commentIcon)
@@ -57,7 +57,7 @@ class PostItemCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     lazy private var containerCommentView: UIView = {
         let view = UIView()
         view.addSubview(numberCommentLabel)
@@ -65,7 +65,7 @@ class PostItemCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     lazy private var iconArrowUpImage: UIImageView = {
         let image = UIImage(systemName: "chevron.up")?.withRenderingMode(.alwaysTemplate)
         let iconImage = UIImageView(image: image)
@@ -73,7 +73,7 @@ class PostItemCell: UITableViewCell {
         iconImage.tintColor = .gray
         return iconImage
     }()
-    
+
     lazy private var iconArrowDownImage: UIImageView = {
         let image = UIImage(systemName: "chevron.down")?.withRenderingMode(.alwaysTemplate)
         let iconImage = UIImageView(image: image)
@@ -93,7 +93,7 @@ class PostItemCell: UITableViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     lazy private var containerViewCell: UIView = {
         let view = UIView()
         view.addSubview(postImageView)
@@ -113,67 +113,65 @@ class PostItemCell: UITableViewCell {
         return view
     }()
 
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         builHierarchy()
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func fill(with post: PostData) {
         titleLabel.text = post.title
         scoreLabel.text = String(post.score ?? 0)
         numberCommentLabel.text = String(post.numberComments ?? 0)
         updatePosterImage(url: post.urlOvrridenByDest ?? "")
     }
-    
+
     private func updatePosterImage(url: String) {
         postImageView.imageFromURL(urlString: url)
     }
-    
-    //MARK: Layout
+
+    // MARK: Layout
     private func builHierarchy() {
         addSubview(containerViewCell)
     }
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            //Image post
+            // Image post
             postImageView.heightAnchor.constraint(equalToConstant: 209),
             postImageView.topAnchor.constraint(equalTo: containerViewCell.topAnchor),
             postImageView.leadingAnchor.constraint(equalTo: containerViewCell.leadingAnchor),
             postImageView.trailingAnchor.constraint(equalTo: containerViewCell.trailingAnchor),
-            
-            //Score
+
+            // Score
             containerScoreStackView.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
             containerScoreStackView.leadingAnchor.constraint(equalTo: containerViewCell.leadingAnchor, constant: 10),
             containerScoreStackView.widthAnchor.constraint(equalToConstant: 50),
 
+            // Title
 
-            //Title
-            
             titleLabel.topAnchor.constraint(equalTo: postImageView.bottomAnchor, constant: 10),
             titleLabel.leadingAnchor.constraint(equalTo: containerScoreStackView.trailingAnchor, constant: 10),
             titleLabel.trailingAnchor.constraint(equalTo: containerViewCell.trailingAnchor, constant: -10),
-            
-            //Comment
-            
+
+            // Comment
+
             commentIconView.topAnchor.constraint(equalTo: containerCommentView.topAnchor),
             commentIconView.leadingAnchor.constraint(equalTo: containerCommentView.leadingAnchor),
             commentIconView.centerYAnchor.constraint(equalTo: containerCommentView.centerYAnchor),
-            
+
             numberCommentLabel.topAnchor.constraint(equalTo: containerCommentView.topAnchor),
-            numberCommentLabel.leadingAnchor.constraint(equalTo: commentIconView.trailingAnchor,constant: 10),
+            numberCommentLabel.leadingAnchor.constraint(equalTo: commentIconView.trailingAnchor, constant: 10),
             numberCommentLabel.centerYAnchor.constraint(equalTo: containerCommentView.centerYAnchor),
-            
+
             containerCommentView.bottomAnchor.constraint(equalTo: containerViewCell.bottomAnchor, constant: -16),
             containerCommentView.leadingAnchor.constraint(equalTo: containerScoreStackView.trailingAnchor, constant: 10),
-            
-            //Container
+
+            // Container
             containerViewCell.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             containerViewCell.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             containerViewCell.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),

@@ -14,7 +14,7 @@
 		EC2CF8212A3221960045B428 /* Constans.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CF8202A3221960045B428 /* Constans.swift */; };
 		EC2CF8242A3223DF0045B428 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CF8232A3223DF0045B428 /* Color+Extension.swift */; };
 		EC2CF8272A32498C0045B428 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CF8262A32498C0045B428 /* LocationManager.swift */; };
-		EC2CF82C2A327A2C0045B428 /* EnumPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CF82B2A327A2C0045B428 /* EnumPage.swift */; };
+		EC2CF82C2A327A2C0045B428 /* PagesKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CF82B2A327A2C0045B428 /* PagesKey.swift */; };
 		EC2CF82E2A3296E90045B428 /* CameraPermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CF82D2A3296E90045B428 /* CameraPermissionManager.swift */; };
 		EC2CF8322A32A5690045B428 /* NotificationPermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CF8312A32A5690045B428 /* NotificationPermissionManager.swift */; };
 		EC2CF8352A3353360045B428 /* PostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2CF8342A3353360045B428 /* PostListViewController.swift */; };
@@ -82,7 +82,7 @@
 		EC2CF8202A3221960045B428 /* Constans.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constans.swift; sourceTree = "<group>"; };
 		EC2CF8232A3223DF0045B428 /* Color+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
 		EC2CF8262A32498C0045B428 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		EC2CF82B2A327A2C0045B428 /* EnumPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumPage.swift; sourceTree = "<group>"; };
+		EC2CF82B2A327A2C0045B428 /* PagesKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagesKey.swift; sourceTree = "<group>"; };
 		EC2CF82D2A3296E90045B428 /* CameraPermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionManager.swift; sourceTree = "<group>"; };
 		EC2CF8312A32A5690045B428 /* NotificationPermissionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPermissionManager.swift; sourceTree = "<group>"; };
 		EC2CF8342A3353360045B428 /* PostListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListViewController.swift; sourceTree = "<group>"; };
@@ -202,8 +202,8 @@
 		EC2CF8282A32784D0045B428 /* CarrouselPermission */ = {
 			isa = PBXGroup;
 			children = (
-				EC2CF81E2A3213E70045B428 /* PermissionsRequestViewController.swift */,
-				EC2CF82B2A327A2C0045B428 /* EnumPage.swift */,
+				EC2CF88E2A3600440045B428 /* UI */,
+				EC2CF82B2A327A2C0045B428 /* PagesKey.swift */,
 			);
 			path = CarrouselPermission;
 			sourceTree = "<group>";
@@ -211,10 +211,8 @@
 		EC2CF8332A3352E60045B428 /* PostList */ = {
 			isa = PBXGroup;
 			children = (
+				EC2CF88D2A3600280045B428 /* UI */,
 				EC2CF83C2A3357E20045B428 /* ViewModel */,
-				EC2CF8392A33570B0045B428 /* Cell */,
-				EC2CF8342A3353360045B428 /* PostListViewController.swift */,
-				EC2CF8832A353E840045B428 /* ItemCarousel.swift */,
 			);
 			path = PostList;
 			sourceTree = "<group>";
@@ -398,6 +396,24 @@
 			path = UserDefaultsManagar;
 			sourceTree = "<group>";
 		};
+		EC2CF88D2A3600280045B428 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				EC2CF8392A33570B0045B428 /* Cell */,
+				EC2CF8342A3353360045B428 /* PostListViewController.swift */,
+				EC2CF8832A353E840045B428 /* ItemCarousel.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		EC2CF88E2A3600440045B428 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				EC2CF81E2A3213E70045B428 /* PermissionsRequestViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 		ECB54B242A3162950093C54B = {
 			isa = PBXGroup;
 			children = (
@@ -462,7 +478,6 @@
 				ECB54B292A3162950093C54B /* Sources */,
 				ECB54B2A2A3162950093C54B /* Frameworks */,
 				ECB54B2B2A3162950093C54B /* Resources */,
-				EC2CF8852A355F9A0045B428 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -578,26 +593,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		EC2CF8852A355F9A0045B428 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		ECB54B292A3162950093C54B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -608,7 +603,7 @@
 				EC2CF8472A3362ED0045B428 /* PostModel.swift in Sources */,
 				EC2CF83B2A3357180045B428 /* PostItemCell.swift in Sources */,
 				EC2CF8822A35198C0045B428 /* SearchRequest.swift in Sources */,
-				EC2CF82C2A327A2C0045B428 /* EnumPage.swift in Sources */,
+				EC2CF82C2A327A2C0045B428 /* PagesKey.swift in Sources */,
 				EC2CF87E2A3516C60045B428 /* SearchPostsUseCase.swift in Sources */,
 				EC2CF8622A33FF8B0045B428 /* UIViewController+Extension.swift in Sources */,
 				EC2CF87C2A3427150045B428 /* PermissionsSceneDICortainer.swift in Sources */,
@@ -813,6 +808,7 @@
 				API_BASE_URL = "https://www.reddit.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6PTSGN23VN;
@@ -825,7 +821,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "uses photos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "uses photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
@@ -848,6 +844,7 @@
 				API_BASE_URL = "https://www.reddit.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6PTSGN23VN;
@@ -860,7 +857,7 @@
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "uses photos";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "uses photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIStatusBarStyle = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";

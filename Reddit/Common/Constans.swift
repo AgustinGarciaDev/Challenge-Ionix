@@ -14,6 +14,7 @@ enum Image {
     static let imageLocation = "imageLocation"
     static let imageCamera = "imageCamera"
     static let commentIcon = "ic_comment"
+    static let settingsIcon = "ic_settings"
 }
 enum Color {
     static let graphiteGray = "graphiteGray"
