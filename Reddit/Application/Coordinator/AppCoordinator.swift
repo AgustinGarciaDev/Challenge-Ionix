@@ -20,22 +20,30 @@ final class AppCoordinator: Coordinator {
     }
     
     func start() {
-        let navigationController = UINavigationController()
         window.rootViewController = navigationController
         window.makeKeyAndVisible()
-        homeFlowCoorinator(navigationController)
-        //permissionFlowCoordinator(navigationController)
+        getSeedStatusPermissions()
     }
     
     private func permissionsFlowCoordinator(_ navigationController: UINavigationController) {
-        let permissionsSceneDIContainer = appDIContainer.makePermissionSceneDIContainer()
-        let flow = permissionsSceneDIContainer.makePermissionsFlowCoordinator(navigationController: navigationController)
-        flow.start()
+        let permissionsSceneDIContainer = PermissionsSceneDIContainer()
+        let flowCoordiantor = permissionsSceneDIContainer.makePermissionsFlowCoordinator(navigationController: navigationController)
+        flowCoordiantor.start()
     }
     
     private func homeFlowCoorinator(_ navigationController: UINavigationController) {
         let postListSceneDIContainer = appDIContainer.makePostsSceneDIContainer()
         let flow = postListSceneDIContainer.makePostsListFlowCoordinator(navigationController: navigationController)
         flow.start()
+    }
+    
+    func getSeedStatusPermissions() {
+        let seed = AppSettings.General.completeScreenPermissions
+        
+        if seed {
+            homeFlowCoorinator(navigationController)
+        } else {
+            permissionsFlowCoordinator(navigationController)
+        }
     }
 }

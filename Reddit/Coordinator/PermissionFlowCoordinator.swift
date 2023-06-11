@@ -23,7 +23,7 @@ final class PermissionsFlowCoordinator: Coordinator {
     }
     
     func start() {
-        screenPermissionRequest(index: 0)
+        screenPermissionRequest(index: currentIndex)
     }
     
     private func screenPermissionRequest(index: Int) {
@@ -34,9 +34,17 @@ final class PermissionsFlowCoordinator: Coordinator {
     }
     
     private func homeCoordinator()  {
+        saveSeedPermissions()
         let postListSceneDIContainer = appDIContainer.makePostsSceneDIContainer()
         let flow = postListSceneDIContainer.makePostsListFlowCoordinator(navigationController: navigationController)
         flow.start()
+    }
+    
+    private func  saveSeedPermissions() {
+        var seed = AppSettings.General.completeScreenPermissions
+        if !seed {
+            AppSettings.General.completeScreenPermissions = true
+        }
     }
 }
 

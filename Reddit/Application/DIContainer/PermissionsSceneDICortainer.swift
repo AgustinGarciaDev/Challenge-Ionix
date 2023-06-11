@@ -11,10 +11,7 @@ protocol PermissionsFlowCoordinatorDependencies {
     func makePermissionsViewController(page: Pages) -> PermissionsRequestViewController
 }
 
-
 final class PermissionsSceneDIContainer: PermissionsFlowCoordinatorDependencies {
-    
-    let appDIContainer = AppDIContainer()
 
     func makePermissionsViewController(page: Pages) -> PermissionsRequestViewController {
         return PermissionsRequestViewController(with: page)
@@ -22,7 +19,9 @@ final class PermissionsSceneDIContainer: PermissionsFlowCoordinatorDependencies 
     
     // MARK: - Flow Coordinators
     func makePermissionsFlowCoordinator(navigationController: UINavigationController) -> PermissionsFlowCoordinator {
-        return PermissionsFlowCoordinator(navigationController: navigationController,
-                                         dependencies: self, appDIContainer: appDIContainer)
+        return PermissionsFlowCoordinator(
+            navigationController: navigationController,
+            dependencies: self
+        )
     }
 }

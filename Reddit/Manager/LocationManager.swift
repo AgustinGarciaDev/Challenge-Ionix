@@ -34,11 +34,7 @@ extension LocationPermissionManager: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        guard let completion = completion else {
-            return
-        }
-        
-        completion(locationManager.authorizationStatus)
+
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
