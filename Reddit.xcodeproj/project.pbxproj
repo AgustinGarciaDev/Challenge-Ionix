@@ -416,6 +416,7 @@
 		ECB54B242A3162950093C54B = {
 			isa = PBXGroup;
 			children = (
+				ECE533CF2A37397C00D05F55 /* README.MD */,
 				ECB54B2F2A3162950093C54B /* Reddit */,
 				ECB54B462A3162970093C54B /* RedditTests */,
 				ECB54B502A3162970093C54B /* RedditUITests */,
@@ -444,7 +445,6 @@
 				EC2CF8432A3362980045B428 /* Domain */,
 				EC2CF83F2A33583B0045B428 /* Presentation */,
 				EC2CF8252A3248B70045B428 /* Manager */,
-				ECE533CF2A37397C00D05F55 /* README.MD */,
 			);
 			path = Reddit;
 			sourceTree = "<group>";
