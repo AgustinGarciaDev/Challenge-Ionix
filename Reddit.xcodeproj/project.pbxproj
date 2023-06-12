@@ -54,7 +54,6 @@
 		ECB54B3D2A3162970093C54B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECB54B3B2A3162970093C54B /* LaunchScreen.storyboard */; };
 		ECB54B522A3162970093C54B /* RedditUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB54B512A3162970093C54B /* RedditUITests.swift */; };
 		ECB54B542A3162970093C54B /* RedditUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB54B532A3162970093C54B /* RedditUITestsLaunchTests.swift */; };
-		ECE533D02A37397C00D05F55 /* README.MD in Sources */ = {isa = PBXBuildFile; fileRef = ECE533CF2A37397C00D05F55 /* README.MD */; };
 		ECE533D72A37494E00D05F55 /* ErrorNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE533D62A37494E00D05F55 /* ErrorNetworkViewController.swift */; };
 		ECE533DE2A3775AD00D05F55 /* PostListViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE533DD2A3775AD00D05F55 /* PostListViewModelTests.swift */; };
 		ECE533E02A3775F300D05F55 /* SearchPostsUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE533DF2A3775F300D05F55 /* SearchPostsUseCaseTest.swift */; };
@@ -657,7 +656,6 @@
 				EC2CF87E2A3516C60045B428 /* SearchPostsUseCase.swift in Sources */,
 				EC2CF8622A33FF8B0045B428 /* UIViewController+Extension.swift in Sources */,
 				EC2CF87C2A3427150045B428 /* PermissionsSceneDICortainer.swift in Sources */,
-				ECE533D02A37397C00D05F55 /* README.MD in Sources */,
 				EC2CF83E2A3357FC0045B428 /* PostListViewModel.swift in Sources */,
 				EC2CF8752A3417E50045B428 /* AppDIContainer.swift in Sources */,
 				EC2CF8632A33FF8B0045B428 /* Cancellable.swift in Sources */,
