@@ -128,7 +128,6 @@ class DefaultPostListViewModel: PostsListViewModel {
             + filteredPosts
 
         if postsList.isEmpty {
-            print(items.value)
             if nextPage !=  "There is no next page." {
                 didLoadNextPage()
             } else {
