@@ -23,5 +23,5 @@ https://www.reddit.com/r/eeuu
 * Flow Coordinator
 * UIKit Views in code
 * Error handling
-* CI Pipeline Travis CI + Fastlane
+* CI GitHub actions + Fastlane
  
