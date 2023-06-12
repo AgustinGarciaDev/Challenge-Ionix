@@ -2,7 +2,7 @@
 
 This repository contains an iOS app that uses the following API:
 
-https://www.reddit.com/r/eeuu
+https://www.reddit.com/r/chile
 
 # Implementation details:
 * Xcode 14.3 / iOS 14
