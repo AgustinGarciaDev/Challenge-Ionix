@@ -22,12 +22,18 @@ final class PermissionsRequestViewController: UIViewController, Alertable {
     // MARK: Lifecycle
     let page: Pages
     var delegate: DelegatePermissionsRequest?
-    let cameraPermissionManager = CameraPermissionManager.shared
-    let notificationPermissionManager = NotificationPermissionManager.shared
-    let locationPermissionManager = LocationPermissionManager.shared
+    let cameraPermissionManager: CameraPermissionManager
+    let notificationPermissionManager: NotificationPermissionManager
+    let locationPermissionManager: LocationPermissionManager
 
-    init(with page: Pages) {
+    init(with page: Pages,
+         camaraPermission:CameraPermissionManager = CameraPermissionManager.shared,
+         notificationPermission: NotificationPermissionManager = NotificationPermissionManager.shared,
+         locationPermission: LocationPermissionManager = LocationPermissionManager.shared) {
         self.page = page
+        self.cameraPermissionManager = camaraPermission
+        self.notificationPermissionManager  = notificationPermission
+        self.locationPermissionManager = locationPermission
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -223,18 +229,7 @@ extension PermissionsRequestViewController {
 }
 
 extension PermissionsRequestViewController {
-
     func showModal(title: String, message: String) {
-        // TODO: Reutilizable alert
-//        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-//        alertController.addAction(UIAlertAction(title: "Open Settings", style: .default, handler: { [weak self] _ in
-//            guard let self = self else {return}
-//            self.delegate?.nextView(with: page.index)
-//            self.openConfigurations()
-//        }))
-//        self.present(alertController, animated: true, completion: nil)
-        
         showAlert(title: title, message: message) { [weak self] _ in
             guard let self = self else {return}
             self.delegate?.nextView(with: page.index)
@@ -242,25 +237,4 @@ extension PermissionsRequestViewController {
         }
     }
 
-}
-
-extension PermissionsRequestViewController {
-    private func openConfigurations() {
-        if let url = URL(string: UIApplication.openSettingsURLString) {
-            if UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
-        }
-    }
-
-    private func getGraddiantColor() -> UIColor? {
-        let gradientStartColor = UIColor(red: 1.0, green: 0.537, blue: 0.376, alpha: 1.0)
-        let gradientEndColor = UIColor(red: 1.0, green: 0.384, blue: 0.647, alpha: 1.0)
-        let startPoint = CGPoint(x: 0.0, y: 0.0)
-        let endPoint = CGPoint(x: 1.0, y: 1.0)
-
-        let gradientColor = UIColor.gradientColor(startColor: gradientStartColor, endColor: gradientEndColor, startPoint: startPoint, endPoint: endPoint)
-
-        return gradientColor
-    }
 }

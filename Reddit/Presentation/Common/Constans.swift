@@ -11,6 +11,7 @@ import UIKit
 enum Image {
     static let imageNotification = "imageNotification"
     static let imageNotFound = "imageNotFound"
+    static let imageError = "imageNetworkError"
     static let imageLocation = "imageLocation"
     static let imageCamera = "imageCamera"
     static let commentIcon = "ic_comment"

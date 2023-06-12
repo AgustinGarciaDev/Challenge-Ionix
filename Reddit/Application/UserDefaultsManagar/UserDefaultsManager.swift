@@ -14,13 +14,11 @@ struct UserDefaultsManager<T> {
     var wrappedValue: T {
         get { userDefaults.value(forKey: keyValue.rawValue) as? T ?? valueData }
         set {
-            switch newValue {
-            case let value as Optional<Any>:
-                if let unwrappedValue = value {
-                    userDefaults.set(unwrappedValue, forKey: keyValue.rawValue)
-                } else {
-                    userDefaults.removeObject(forKey: keyValue.rawValue)
-                }
+            switch (newValue as Any) {
+            case Optional<Any>.some(let value):
+                userDefaults.set(value, forKey: keyValue.rawValue)
+            case Optional<Any>.none:
+                userDefaults.removeObject(forKey: keyValue.rawValue)
             default:
                 userDefaults.set(newValue, forKey: keyValue.rawValue)
             }

@@ -45,7 +45,6 @@ class PostListViewController: UIViewController, Alertable {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .white
         view.isHidden = true
-
         return view
     }()
 
@@ -91,10 +90,10 @@ class PostListViewController: UIViewController, Alertable {
             postListTableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
             postListTableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
 
-            showErrorNotFoundView.topAnchor.constraint(equalTo: view.topAnchor),
-            showErrorNotFoundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            showErrorNotFoundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            showErrorNotFoundView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            showErrorNotFoundView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            showErrorNotFoundView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            showErrorNotFoundView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
+            showErrorNotFoundView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
         ])
     }
 
@@ -174,15 +173,20 @@ class PostListViewController: UIViewController, Alertable {
 
     private func showError(_ error: String) {
         guard !error.isEmpty else { return }
-        showAlert(title: viewModel.errorTitle, message: error) {  [weak self] _ in
-            if error == "Failed loading characters" {
-                self?.viewModel.didSearch(query: "")
-            }
-        }
+        addScreenErrorNetwork()
+    }
+    
+    private func addScreenErrorNetwork() {
+        let errorView = ErrorNetworkViewController()
+      //  self.navigationController?.pushViewController(errorView, animated: true)
+        errorView.delegate = self
+        errorView.modalPresentationStyle = .fullScreen
+        present(errorView, animated: false)
     }
 
 }
 
+//MARK: SearchBar
 extension PostListViewController: UISearchControllerDelegate, UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text, !searchText.isEmpty else { return }
@@ -220,6 +224,7 @@ extension PostListViewController: UISearchControllerDelegate, UISearchBarDelegat
     }
 }
 
+//MARK: TableView
 extension PostListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.items.value.count
@@ -243,5 +248,11 @@ extension PostListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 350
     }
+}
 
+//MARK: Error network
+extension PostListViewController: ErrorNetworkProtocol {
+    func retryRed() {
+        viewModel.didLoadPosts()
+    }
 }

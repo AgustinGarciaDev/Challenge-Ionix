@@ -55,6 +55,8 @@
 		ECB54B482A3162970093C54B /* RedditTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB54B472A3162970093C54B /* RedditTests.swift */; };
 		ECB54B522A3162970093C54B /* RedditUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB54B512A3162970093C54B /* RedditUITests.swift */; };
 		ECB54B542A3162970093C54B /* RedditUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB54B532A3162970093C54B /* RedditUITestsLaunchTests.swift */; };
+		ECE533D02A37397C00D05F55 /* README.MD in Sources */ = {isa = PBXBuildFile; fileRef = ECE533CF2A37397C00D05F55 /* README.MD */; };
+		ECE533D72A37494E00D05F55 /* ErrorNetworkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECE533D62A37494E00D05F55 /* ErrorNetworkViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +129,8 @@
 		ECB54B4D2A3162970093C54B /* RedditUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RedditUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		ECB54B512A3162970093C54B /* RedditUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditUITests.swift; sourceTree = "<group>"; };
 		ECB54B532A3162970093C54B /* RedditUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		ECE533CF2A37397C00D05F55 /* README.MD */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.MD; sourceTree = "<group>"; };
+		ECE533D62A37494E00D05F55 /* ErrorNetworkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorNetworkViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,15 +158,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		EC2CF8152A31F7C40045B428 /* Common */ = {
-			isa = PBXGroup;
-			children = (
-				EC2CF8222A3223CE0045B428 /* Extensions */,
-				EC2CF8202A3221960045B428 /* Constans.swift */,
-			);
-			path = Common;
-			sourceTree = "<group>";
-		};
 		EC2CF8162A31F7D10045B428 /* Coordinator */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,14 +176,6 @@
 			path = Scenes;
 			sourceTree = "<group>";
 		};
-		EC2CF8222A3223CE0045B428 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				EC2CF8232A3223DF0045B428 /* Color+Extension.swift */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
 		EC2CF8252A3248B70045B428 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,8 +189,8 @@
 		EC2CF8282A32784D0045B428 /* CarrouselPermission */ = {
 			isa = PBXGroup;
 			children = (
+				EC2CF8362A3353530045B428 /* Flow */,
 				EC2CF88E2A3600440045B428 /* UI */,
-				EC2CF82B2A327A2C0045B428 /* PagesKey.swift */,
 			);
 			path = CarrouselPermission;
 			sourceTree = "<group>";
@@ -211,19 +198,19 @@
 		EC2CF8332A3352E60045B428 /* PostList */ = {
 			isa = PBXGroup;
 			children = (
+				ECE533D12A37429000D05F55 /* Flow */,
 				EC2CF88D2A3600280045B428 /* UI */,
 				EC2CF83C2A3357E20045B428 /* ViewModel */,
 			);
 			path = PostList;
 			sourceTree = "<group>";
 		};
-		EC2CF8362A3353530045B428 /* Coordinator */ = {
+		EC2CF8362A3353530045B428 /* Flow */ = {
 			isa = PBXGroup;
 			children = (
 				EC2CF81B2A31FA6D0045B428 /* PermissionFlowCoordinator.swift */,
-				EC2CF8372A33536D0045B428 /* HomeCoordinator.swift */,
 			);
-			path = Coordinator;
+			path = Flow;
 			sourceTree = "<group>";
 		};
 		EC2CF8392A33570B0045B428 /* Cell */ = {
@@ -245,6 +232,7 @@
 		EC2CF83F2A33583B0045B428 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				ECE533D52A37492D00D05F55 /* ErrorNetwork */,
 				EC2CF85A2A33FF8B0045B428 /* Common */,
 				EC2CF8402A3358460045B428 /* Utils */,
 				EC2CF81D2A3203910045B428 /* Scenes */,
@@ -255,6 +243,7 @@
 		EC2CF8402A3358460045B428 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				EC2CF82B2A327A2C0045B428 /* PagesKey.swift */,
 				EC2CF8552A33FA370045B428 /* Alertable.swift */,
 				EC2CF8532A33FA370045B428 /* DataTransferError+Extension.swift */,
 				EC2CF8522A33FA370045B428 /* UIImage+Extesion.swift */,
@@ -312,6 +301,8 @@
 		EC2CF85A2A33FF8B0045B428 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				EC2CF8202A3221960045B428 /* Constans.swift */,
+				EC2CF8232A3223DF0045B428 /* Color+Extension.swift */,
 				EC2CF85B2A33FF8B0045B428 /* ConnectionError.swift */,
 				EC2CF85C2A33FF8B0045B428 /* UIViewController+Extension.swift */,
 				EC2CF85D2A33FF8B0045B428 /* Cancellable.swift */,
@@ -444,9 +435,8 @@
 				EC2CF8482A33F93D0045B428 /* Infrastructure */,
 				EC2CF8432A3362980045B428 /* Domain */,
 				EC2CF83F2A33583B0045B428 /* Presentation */,
-				EC2CF8362A3353530045B428 /* Coordinator */,
 				EC2CF8252A3248B70045B428 /* Manager */,
-				EC2CF8152A31F7C40045B428 /* Common */,
+				ECE533CF2A37397C00D05F55 /* README.MD */,
 			);
 			path = Reddit;
 			sourceTree = "<group>";
@@ -466,6 +456,22 @@
 				ECB54B532A3162970093C54B /* RedditUITestsLaunchTests.swift */,
 			);
 			path = RedditUITests;
+			sourceTree = "<group>";
+		};
+		ECE533D12A37429000D05F55 /* Flow */ = {
+			isa = PBXGroup;
+			children = (
+				EC2CF8372A33536D0045B428 /* HomeCoordinator.swift */,
+			);
+			path = Flow;
+			sourceTree = "<group>";
+		};
+		ECE533D52A37492D00D05F55 /* ErrorNetwork */ = {
+			isa = PBXGroup;
+			children = (
+				ECE533D62A37494E00D05F55 /* ErrorNetworkViewController.swift */,
+			);
+			path = ErrorNetwork;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -607,6 +613,7 @@
 				EC2CF87E2A3516C60045B428 /* SearchPostsUseCase.swift in Sources */,
 				EC2CF8622A33FF8B0045B428 /* UIViewController+Extension.swift in Sources */,
 				EC2CF87C2A3427150045B428 /* PermissionsSceneDICortainer.swift in Sources */,
+				ECE533D02A37397C00D05F55 /* README.MD in Sources */,
 				EC2CF83E2A3357FC0045B428 /* PostListViewModel.swift in Sources */,
 				EC2CF8752A3417E50045B428 /* AppDIContainer.swift in Sources */,
 				EC2CF8632A33FF8B0045B428 /* Cancellable.swift in Sources */,
@@ -625,6 +632,7 @@
 				EC2CF84F2A33F93D0045B428 /* NetworkService.swift in Sources */,
 				EC2CF8512A33F93D0045B428 /* NetworkConfig.swift in Sources */,
 				EC2CF81A2A31F8880045B428 /* AppCoordinator.swift in Sources */,
+				ECE533D72A37494E00D05F55 /* ErrorNetworkViewController.swift in Sources */,
 				EC2CF8672A34016D0045B428 /* LoadInitalPostUseCase.swift in Sources */,
 				EC2CF88C2A35E7680045B428 /* UserDefaultKeys.swift in Sources */,
 				EC2CF8572A33FA370045B428 /* DataTransferError+Extension.swift in Sources */,
