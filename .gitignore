@@ -37,4 +37,20 @@ xcuserdata/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
-# End of https://www.toptal.com/developers/gitignore/api/xcode,swiftpackagemanager,swiftpm,cocoapods
+# fastlane specific
+**/fastlane/report.xml
+
+# deliver temporary files
+**/fastlane/Preview.html
+
+# snapshot generated screenshots
+**/fastlane/screenshots
+
+# scan temporary files
+**/fastlane/test_output
+
+# Fastlane.swift runner binary
+**/fastlane/FastlaneRunner
+
+
+# End of https://www.toptal.com/developers/gitignore/api/xcode,swiftpackagemanager,swiftpm,cocoapods,fastlane
