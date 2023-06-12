@@ -1,12 +1,19 @@
+//
+//  UserDefaultsManager.swift
+//  Reddit
+//
+//  Created by Agustin on 12/06/2023.
+//
+
 import Foundation
 
 @propertyWrapper
 struct UserDefaultsManager<T> {
-    private let keyValue: UserDefultsKeys
+    private let keyValue: UserDefaultsKeys
     private let valueData: T
     private let userDefaults: UserDefaults = .standard
     
-    init(valueKey: UserDefultsKeys, dataStorage: T) {
+    init(valueKey: UserDefaultsKeys, dataStorage: T) {
         keyValue = valueKey
         valueData = dataStorage
     }

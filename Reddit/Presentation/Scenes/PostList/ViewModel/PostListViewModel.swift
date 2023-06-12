@@ -120,7 +120,8 @@ class DefaultPostListViewModel: PostsListViewModel {
             guard let postData = postList.data else {
                 return false
             }
-            return postData.postHint == "image" && postData.linkFlairText == "Shitposting"
+            //TODO: Implement filtering for 'Shitposting' content once the API issue is resolved.
+            return postData.postHint == "image"
         }
 
         postsList = postsList

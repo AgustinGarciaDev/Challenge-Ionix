@@ -2,7 +2,7 @@
 
 This repository contains an iOS app that uses the following API:
 
-https://www.reddit.com/r/chile
+https://www.reddit.com/r/memes
 
 ## Installation
  ```
