@@ -26,22 +26,5 @@ final class LocationPermissionManager: NSObject {
 }
 
 extension LocationPermissionManager: CLLocationManagerDelegate {
-
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-    }
-
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-
-    }
-
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else {
-            return
-        }
-
-        print("save keychain\(location)")
-        // Obtener la ubicación actualizada
-        // Puedes realizar las acciones relacionadas con la ubicación aquí
-        // print(location)
-    }
+ 
 }

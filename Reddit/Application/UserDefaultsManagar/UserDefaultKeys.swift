@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum UserDefultsKeys: String {
+enum UserDefaultsKeys: String {
     case completeScreenPermissions
 }
